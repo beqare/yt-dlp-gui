@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yt-dlp GUI Pro - Download Videos & Audio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-download"></i>
+            <h1>yt-dlp GUI</h1>
+          </div>
+          <div class="version-info">
+            <span id="version">Loading...</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Input Section -->
+        <section class="input-section">
+          <div class="url-input-container">
+            <div class="input-with-icon">
+              <i class="fas fa-link"></i>
+              <input
+                type="text"
+                id="url"
+                placeholder="Enter video URL (YouTube, Vimeo, TikTok, etc.)"
+                autocomplete="off"
+              />
+            </div>
+            <button id="paste-btn" class="btn-secondary">
+              <i class="fas fa-paste"></i> Paste
+            </button>
+          </div>
+
+          <!-- Quick Format Buttons -->
+          <div class="quick-format-buttons">
+            <button
+              class="format-btn active"
+              data-format="mp4"
+              data-quality="best"
+            >
+              <i class="fas fa-film"></i> Best Video
+            </button>
+            <button class="format-btn" data-format="mp3" data-quality="320">
+              <i class="fas fa-music"></i> MP3 320k
+            </button>
+            <button class="format-btn" data-format="mp4" data-quality="1080">
+              <i class="fas fa-hd"></i> 1080p
+            </button>
+            <button class="format-btn" data-format="mp4" data-quality="720">
+              <i class="fas fa-tv"></i> 720p
+            </button>
+          </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="settings-section">
+          <div class="settings-grid">
+            <!-- Format Selection -->
+            <div class="setting-group">
+              <label for="format">
+                <i class="fas fa-file-video"></i> Format
+              </label>
+              <select id="format">
+                <option value="best">Best Quality (Video)</option>
+                <option value="mp4">MP4 Video</option>
+                <option value="webm">WebM Video</option>
+                <option value="mp3">MP3 Audio</option>
+                <option value="m4a">M4A Audio</option>
+                <option value="opus">Opus Audio</option>
+                <option value="flac">FLAC Audio</option>
+              </select>
+            </div>
+
+            <!-- Quality Selection -->
+            <div class="setting-group">
+              <label for="quality">
+                <i class="fas fa-signal"></i> Quality
+              </label>
+              <select id="quality">
+                <option value="bestvideo+bestaudio/best">Best Available</option>
+                <option value="bestvideo[height<=2160]+bestaudio">
+                  4K (2160p)
+                </option>
+                <option value="bestvideo[height<=1440]+bestaudio">
+                  2K (1440p)
+                </option>
+                <option value="bestvideo[height<=1080]+bestaudio">1080p</option>
+                <option value="bestvideo[height<=720]+bestaudio">720p</option>
+                <option value="bestvideo[height<=480]+bestaudio">480p</option>
+                <option value="worst">Lowest Quality</option>
+              </select>
+            </div>
+
+            <!-- Bitrate (for audio) -->
+            <div class="setting-group">
+              <label for="bitrate">
+                <i class="fas fa-volume-up"></i> Audio Bitrate
+              </label>
+              <select id="bitrate">
+                <option value="320">320k (Best)</option>
+                <option value="256">256k (High)</option>
+                <option value="192">192k (Medium)</option>
+                <option value="128">128k (Low)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Advanced Options -->
+          <div class="advanced-options">
+            <div class="option-group">
+              <label class="checkbox-label">
+                <input type="checkbox" id="subtitles" />
+                <span class="checkbox-custom"></span>
+                <span class="option-text">
+                  <i class="fas fa-closed-captioning"></i> Download subtitles
+                </span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="playlist" />
+                <span class="checkbox-custom"></span>
+                <span class="option-text">
+                  <i class="fas fa-list"></i> Download playlist
+                </span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="notifications" checked />
+                <span class="checkbox-custom"></span>
+                <span class="option-text">
+                  <i class="fas fa-bell"></i> Enable notifications
+                </span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+          <div class="progress-container">
+            <div class="progress-header">
+              <h3>
+                <i class="fas fa-chart-line"></i> Download Progress
+                <span id="progress-text">0%</span>
+              </h3>
+              <div class="progress-stats">
+                <span id="status">Ready</span>
+              </div>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-actions">
+              <button id="download" class="btn-primary btn-large">
+                <i class="fas fa-download"></i> Start Download
+              </button>
+              <button id="cancel" class="btn-danger" disabled>
+                <i class="fas fa-stop-circle"></i> Cancel
+              </button>
+              <button id="clear-log" class="btn-secondary">
+                <i class="fas fa-broom"></i> Clear Log
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Log Section -->
+        <section class="log-section">
+          <div class="log-header">
+            <h3><i class="fas fa-terminal"></i> Download Log</h3>
+            <div class="log-actions">
+              <button id="copy-log" class="btn-small">
+                <i class="fas fa-copy"></i> Copy
+              </button>
+              <button id="open-folder" class="btn-small">
+                <i class="fas fa-folder-open"></i> Open Folder
+              </button>
+            </div>
+          </div>
+          <div class="log-container">
+            <pre id="log">
+[System] Ready to download. Paste a URL above and click Start Download.</pre
+            >
+          </div>
+          <div class="log-footer">
+            <span id="log-count">0 lines</span>
+            <span class="hint">
+              <i class="fas fa-info-circle"></i> You can drag and drop URLs into
+              the input field
+            </span>
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <div class="footer-info">
+            <span>yt-dlp GUI</span>
+            <span>•</span>
+            <span>Made by Jonas Grimm</span>
+          </div>
+          <div class="footer-links">
+            <a
+              href="https://github.com/yt-dlp/yt-dlp"
+              target="_blank"
+              class="footer-link"
+            >
+              <i class="fab fa-github"></i> yt-dlp
+            </a>
+            <a href="https://github.com" target="_blank" class="footer-link">
+              <i class="fas fa-question-circle"></i> Help
+            </a>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

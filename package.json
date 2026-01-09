@@ -1,0 +1,31 @@
+{
+  "name": "yt-dlp-gui",
+  "version": "2.0.0",
+  "description": "Modern yt-dlp GUI with advanced features",
+  "author": "Jonas Grimm",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "build": {
+    "appId": "com.ytdlp.gui",
+    "productName": "yt-dlp GUI Pro",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!bin/*.exe"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    }
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^24.9.1"
+  }
+}
