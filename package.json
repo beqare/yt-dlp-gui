@@ -1,6 +1,6 @@
 {
   "name": "yt-dlp-gui",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Modern yt-dlp GUI with advanced features",
   "author": "Jonas Grimm",
   "main": "main.js",
@@ -11,7 +11,7 @@
   },
   "build": {
     "appId": "com.ytdlp.gui",
-    "productName": "yt-dlp GUI Pro",
+    "productName": "yt-dlp GUI",
     "directories": {
       "output": "dist"
     },
