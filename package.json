@@ -6,26 +6,59 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder",
+    "build": "electron-builder --win",
+    "build:win": "electron-builder --win",
     "pack": "electron-builder --dir"
   },
   "build": {
     "appId": "com.ytdlp.gui",
     "productName": "yt-dlp GUI",
+    "copyright": "Copyright © 2026 ${author}",
     "directories": {
-      "output": "dist"
+      "output": "dist",
+      "buildResources": "build"
     },
     "files": [
       "**/*",
-      "!bin/*.exe"
+      "!src/**/*",
+      "!*.md",
+      "!.gitignore",
+      "!.editorconfig",
+      "!package-lock.json",
+      "!yarn.lock"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
     ],
     "win": {
       "target": "nsis",
-      "icon": "assets/icon.ico"
+      "icon": "assets/icon.ico",
+      "publisherName": "Jonas Grimm"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "yt-dlp GUI",
+      "uninstallDisplayName": "yt-dlp GUI",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": false
     }
   },
   "devDependencies": {
     "electron": "^30.0.0",
     "electron-builder": "^24.9.1"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
   }
 }
